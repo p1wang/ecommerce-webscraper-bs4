@@ -34,8 +34,9 @@ The web scraper is built with beautifulsoup4, it scrapes json data for every ite
 
 # Stack
 - [Python3](https://www.python.org/downloads)
--  [beautifulsoup4](https://pypi.org/project/beautifulsoup4)
+- [beautifulsoup4](https://pypi.org/project/beautifulsoup4)
 - [requests](https://pypi.org/project/requests)
+- [selenium4](https://pypi.org/project/selenium/)
 
 # Getting started
 
