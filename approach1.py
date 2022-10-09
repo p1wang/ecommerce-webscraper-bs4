@@ -114,7 +114,7 @@ def getItemsDetailsInCategory(categoryUrl):
 
     return
 
-
+def main():
 # ----------------------------------------- Main -------------------------------------------------
 #  TIMER START
 start = time.time()
@@ -138,3 +138,6 @@ f.close()
 # TIMER END
 end = time.time()
 print(end - start)
+
+if __name__ == "__main__":
+    main()
