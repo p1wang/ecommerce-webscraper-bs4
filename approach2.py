@@ -146,39 +146,42 @@ def getItemDetails(itemUrl):
     except:
         print("Something went wrong at getItemDetails")
 
+def main():
+    # ----------------------------------------- Main -------------------------------------------------
+    #  TIMER START
+    start = time.time()
 
-# ----------------------------------------- Main -------------------------------------------------
-#  TIMER START
-start = time.time()
+    # --------------------------- get and write all category urls -------------------------------------
+    allCategoryUrls = getAllCategoryUrls()
 
-# --------------------------- get and write all category urls -------------------------------------
-allCategoryUrls = getAllCategoryUrls()
+    # --------------------------- THREADS get and write all item urls ---------------------------------
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+        executor.map(getItemsUrlsOnPage, allCategoryUrls)
+        # executor.map(getItemsUrlsOnPage, allCategoryUrls[2:3])
 
-# --------------------------- THREADS get and write all item urls ---------------------------------
-with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
-    executor.map(getItemsUrlsOnPage, allCategoryUrls)
-    # executor.map(getItemsUrlsOnPage, allCategoryUrls[2:3])
+    # ---------------------------------- Update total items -------------------------------------------
+    totalItems = len(allItemUrls)
+    print(totalItems)
 
-# ---------------------------------- Update total items -------------------------------------------
-totalItems = len(allItemUrls)
-print(totalItems)
+    # -------------------------- THREADS get all item details ----------------------------
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+        executor.map(getItemDetails, allItemUrls)
+        # executor.map(getItemDetails, allItemUrls[:100])
 
-# -------------------------- THREADS get all item details ----------------------------
-with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
-    executor.map(getItemDetails, allItemUrls)
-    # executor.map(getItemDetails, allItemUrls[:100])
+    f = open("output/allCategoryUrls.txt", "w")
+    f.write(str(allCategoryUrls))
 
-f = open("output/allCategoryUrls.txt", "w")
-f.write(str(allCategoryUrls))
+    f = open("output/allItemUrls.txt", "w")
+    f.write(str(allItemUrls))
 
-f = open("output/allItemUrls.txt", "w")
-f.write(str(allItemUrls))
+    f = open("output/allItemsDetails.json", "w")
+    f.write(json.dumps(allItemsDetails, indent=2))
 
-f = open("output/allItemsDetails.json", "w")
-f.write(json.dumps(allItemsDetails, indent=2))
+    f.close()
 
-f.close()
+    # TIMER END
+    end = time.time()
+    print(end - start)
 
-# TIMER END
-end = time.time()
-print(end - start)
+if __name__ == "__main__":
+    main()
