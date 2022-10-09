@@ -1,7 +1,7 @@
 # ecommerce-webscraper-bs4
 
 # Description
-The web scraper is built with beautifulsoup4, it scrapes json data for every item of every category from homedepot. The data collected is saved to a json file. Rotating user agents, reusable request and mutiple threads were inplemented to increase the speed, to fully utilize threads and minimize scraping speed, extra proxy service will be required.
+The web scraper is built with beautifulsoup4 and selenium, it scrapes dyanamic content for json data for every item of every category from homedepot. The data collected is saved to a json file. Rotating user agents, reusable request and mutiple threads were inplemented to increase the speed, to fully utilize threads and minimize scraping speed, proxy service will be required.
 
 # Sample output
 ```
